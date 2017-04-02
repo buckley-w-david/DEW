@@ -5,7 +5,7 @@ linear feedback shift generators seeded with a key and 2 (single file use) nonce
 
 ## Execution
 ### Encryption
-usage: main.py encrypt [-h] [--cmdtext] [--keyfile KEYFILE] infile outfile
+usage: `main.py encrypt [-h] [--cmdtext] [--keyfile KEYFILE] infile outfile`
 
 positional arguments:
   infile             The plaintext wanted to be encrypted/decrypted
@@ -20,16 +20,16 @@ optional arguments:
   
 Examples:
 Outputs encrypted version of 'testfile.txt' into file 'encrypted_file', as well as outputs 256 bit key into 'encrypted_file.key'
->python main.py encrypt testfile.txt encrypted_file
+`>python main.py encrypt testfile.txt encrypted_file`
 
 Outputs encrypted version of 'newfile.txt' into file 'new_encrypted' using previously generated key 'encrypted_file.key'
->python main.py encrypt --keyfile encrypted_file.key newfile.txt new_encrypted
+`>python main.py encrypt --keyfile encrypted_file.key newfile.txt new_encrypted`
 
 Outputs encrypted version of text 'This is a test' into file 'new_encrypted' using previously generated key 'encrypted_file.key'
->python main.py encrypt --cmdtext --keyfile encrypted_file.key "This is a test" new_encrypted
+`>python main.py encrypt --cmdtext --keyfile encrypted_file.key "This is a test" new_encrypted`
 
 ### Decryption
-usage: main.py decrypt [-h] infile keyfile outfile
+usage: `main.py decrypt [-h] infile keyfile outfile`
 
 positional arguments:
   infile      The plaintext wanted to be encrypted/decrypted
@@ -41,7 +41,7 @@ optional arguments:
   
 Examples:
 Outputs decrpyed version of 'encrypted_file' into file 'newfile.txt' using key in 'encrypted_file.key'
->python main.py decrypt encrypted_file encrypted_file.key testfile.txt
+`>python main.py decrypt encrypted_file encrypted_file.key testfile.txt`
 
 Outputs encrypted version of 'newfile.txt' into file 'new_encrypted' using previously generated key 'encrypted_file.key'
->python main.py encrypt --keyfile encrypted_file.key newfile.txt new_encrypted
+`>python main.py encrypt --keyfile encrypted_file.key newfile.txt new_encrypted`
