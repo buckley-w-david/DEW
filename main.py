@@ -7,10 +7,8 @@ import dew
 
 def _transform(args, key):
     if (args.cmdtext):
-        with BytesIO() as f, open(args.outfile, 'wb') as out:
-            f.write(args.text.encode())
-            f.seek(0)
-            result = dew.transform(f.read(), key)
+        with open(args.outfile, 'wb') as out:
+            result = dew.transform(args.infile.encode(), key)
             out.write(result)
     else:    
         with open('{}'.format(args.infile), 'rb') as f, open(args.outfile, 'wb') as out:
