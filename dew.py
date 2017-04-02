@@ -16,7 +16,7 @@ def expand(key, size, nonce1, nonce2):
     LFSR0_out = 0
     LFSR1_out = 0
     warmup = -256 #have initial warmup phase to make output rely on both nonces and key
-    for _ in range(size):
+    for _ in range(size-warmup):
         control_out = control >> 255 #extract MSB
         next_in = combine(control, (12, 48, 115, 133, 213, 256)) #1 + x^12 + x^48 + x^115 + x^133 + x^213 + x^256
         control = ((control << 1) | next_in) & mask #Shift control 1 to the left, and insert the next_in to the LSB, then & with (2^256)-1 to cut off MSB (output)
