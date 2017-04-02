@@ -40,6 +40,7 @@ def expand(key, size, nonce0, nonce1):
         
     return expanded_key.to_bytes(size//8, byteorder='little') #convert the expanded key to bytes to xor with the file bytes
 
+#If transforms text from plaintext to ciphertext, or ciphertext to plaintext
 def transform(stream, key, nonce1, nonce2):
     expanded_key = expand(key, len(stream)*8, nonce1, nonce2) #return a bytes object
     transformed_stream = bytes()
