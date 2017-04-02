@@ -6,20 +6,20 @@ import dew
 
 def _encrypt(args):
     key = randbits(256)
-    nonce1 = randbits(256)
-    nonce2 = randbits(256)
+    nonce0 = randbits(256)
+    nonce1 = randbits(255)
     
     if (args.cmdtext):
         with open(args.outfile, 'wb') as out:
-            result = dew.transform(args.infile.encode(), key, nonce1, nonce2)
-            out.write(nonce1.to_bytes(32, byteorder='little')
-                      + nonce2.to_bytes(32, byteorder='little')
+            result = dew.transform(args.infile.encode(), key, nonce0, nonce1)
+            out.write(nonce0.to_bytes(32, byteorder='little')
+                      + nonce1.to_bytes(32, byteorder='little')
                       + result)
     else:    
         with open('{}'.format(args.infile), 'rb') as f, open(args.outfile, 'wb') as out:
-            result = dew.transform(f.read(), key, nonce1, nonce2)
-            out.write(nonce1.to_bytes(32, byteorder='little')
-                      + nonce2.to_bytes(32, byteorder='little')
+            result = dew.transform(f.read(), key, nonce0, nonce1)
+            out.write(nonce0.to_bytes(32, byteorder='little')
+                      + nonce1.to_bytes(32, byteorder='little')
                       + result)
             
     with open('{}.key'.format(args.outfile), 'wb') as out:
@@ -30,10 +30,10 @@ def _decrypt(args):
         key = int.from_bytes(f.read(), byteorder='little')
         
     with open('{}'.format(args.infile), 'rb') as f, open(args.outfile, 'wb') as out:
+        nonce0 = int.from_bytes(f.read(32), byteorder='little')
         nonce1 = int.from_bytes(f.read(32), byteorder='little')
-        nonce2 = int.from_bytes(f.read(32), byteorder='little')
         
-        result = dew.transform(f.read(), key, nonce1, nonce2)
+        result = dew.transform(f.read(), key, nonce0, nonce1)
         out.write(result)
             
 
