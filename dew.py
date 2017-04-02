@@ -3,8 +3,8 @@ import operator, functools
 
 #linear control LFSH combine
 def combine(seed, poly):
-    bits = [(seed >> (exponent-1)) & 1 for exponent in poly]
-    return functools.reduce(operator.xor, bits)
+    bits = [(seed >> (exponent-1)) & 1 for exponent in poly] #extract the bits for the given polynomial
+    return functools.reduce(operator.xor, bits) #XOR all bits extracted from the seed together
 
 def expand(key, size, nonce0, nonce1):
     mask_256 = (2**256)-1
