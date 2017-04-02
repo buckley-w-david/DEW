@@ -43,8 +43,8 @@ def expand(key, size, nonce0, nonce1):
 #If transforms text from plaintext to ciphertext, or ciphertext to plaintext
 def transform(stream, key, nonce1, nonce2):
     expanded_key = expand(key, len(stream)*8, nonce1, nonce2) #return a bytes object
-    transformed_stream = bytes()
+    transformed_stream = bytearray()
     for byte_key, byte_stream in zip(expanded_key, stream):
-        transformed_stream += (byte_key ^ byte_stream).to_bytes(1, byteorder='little')
+        transformed_stream.append(byte_key ^ byte_stream)
 
-    return transformed_stream
+    return bytes(transformed_stream)
