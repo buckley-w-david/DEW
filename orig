@@ -3,6 +3,7 @@ import operator, functools
 
 #linear control LFSH combine
 def combine(seed, poly):
+    
     bits = [(seed >> (exponent-1)) & 1 for exponent in poly]
     return functools.reduce(operator.xor, bits)
 

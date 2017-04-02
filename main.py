@@ -2,7 +2,6 @@
 
 import argparse
 from secrets import randbits
-from io import BytesIO
 import dew
 
 def _transform(args, key):
