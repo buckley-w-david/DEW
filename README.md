@@ -7,16 +7,16 @@ linear feedback shift generators seeded with a key and 2 (single file use) nonce
 ### Encryption
 usage: `main.py encrypt [-h] [--cmdtext] [--keyfile KEYFILE] infile outfile`
 
-positional arguments:
-  infile             The plaintext wanted to be encrypted/decrypted
-  outfile            Name of output encrypted file
+positional arguments:<br />
+  `infile`             The plaintext wanted to be encrypted/decrypted<br />
+  `outfile`            Name of output encrypted file
 
-optional arguments:
-  -h, --help         show this help message and exit
-  --cmdtext          Specifiy this command to treat the 'infile' argument as
-                     the text the encrypt
-  --keyfile KEYFILE  Optional keyfile to encrypt the file, truncated/padded to
-                     256 bits
+optional arguments:<br />
+  `-h`, `--help`         show this help message and exit<br />
+  `--cmdtext`          Specifiy this command to treat the 'infile' argument as
+                     the text the encrypt<br />
+  `--keyfile KEYFILE`  Optional keyfile to encrypt the file, truncated/padded to
+                     256 bits<br />
   
 Examples:
 Outputs encrypted version of 'testfile.txt' into file 'encrypted_file', as well as outputs 256 bit key into 'encrypted_file.key'
@@ -31,13 +31,13 @@ Outputs encrypted version of text 'This is a test' into file 'new_encrypted' usi
 ### Decryption
 usage: `main.py decrypt [-h] infile keyfile outfile`
 
-positional arguments:
-  infile      The plaintext wanted to be encrypted/decrypted
-  keyfile     The file generated holding the key during encryption
-  outfile     Name of output unencrypted file
+positional arguments:<br />
+  `infile`      The plaintext wanted to be encrypted/decrypted<br />
+  `keyfile`     The file generated holding the key during encryption<br />
+  `outfile`     Name of output unencrypted file
 
-optional arguments:
-  -h, --help  show this help message and exit
+optional arguments:<br />
+  `-h`, `--help`  show this help message and exit
   
 Examples:
 Outputs decrpyed version of 'encrypted_file' into file 'newfile.txt' using key in 'encrypted_file.key'
