@@ -30,7 +30,7 @@ def expand(key, size, nonce1, nonce2):
             next_in = combine(LFSR1, (12, 48, 115, 133, 213, 256)) #temporary
             LFSR1 = ((LFSR1 << 1) | next_in) & mask
 
-        if warmup < 0:
+        if warmup > 0:
             expanded_key = (expanded_key << 1) | (LFSR0_out ^ LFSR1_out) #shift output stream one to the left, and insert new output into LSB
         warmup += 1
         
