@@ -19,7 +19,7 @@ def _transform(args, key):
 
 def _encrypt(args):
     key = randbits(256)
-    _transform(argsm key)
+    _transform(args, key)
     with open('{}.key'.format(args.outfile), 'wb') as out:
         out.write(key.to_bytes(32, byteorder='little'))
 
