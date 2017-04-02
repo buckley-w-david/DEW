@@ -19,13 +19,13 @@ optional arguments:<br />
                      256 bits<br />
   
 Examples:
-Outputs encrypted version of 'testfile.txt' into file 'encrypted_file', as well as outputs 256 bit key into 'encrypted_file.key'
+Outputs encrypted version of 'testfile.txt' into file 'encrypted_file', as well as outputs 256 bit key into 'encrypted_file.key'<br />
 `>python main.py encrypt testfile.txt encrypted_file`
 
-Outputs encrypted version of 'newfile.txt' into file 'new_encrypted' using previously generated key 'encrypted_file.key'
+Outputs encrypted version of 'newfile.txt' into file 'new_encrypted' using previously generated key 'encrypted_file.key'<br />
 `>python main.py encrypt --keyfile encrypted_file.key newfile.txt new_encrypted`
 
-Outputs encrypted version of text 'This is a test' into file 'new_encrypted' using previously generated key 'encrypted_file.key'
+Outputs encrypted version of text 'This is a test' into file 'new_encrypted' using previously generated key 'encrypted_file.key'<br />
 `>python main.py encrypt --cmdtext --keyfile encrypted_file.key "This is a test" new_encrypted`
 
 ### Decryption
@@ -40,8 +40,8 @@ optional arguments:<br />
   `-h`, `--help`  show this help message and exit
   
 Examples:
-Outputs decrpyed version of 'encrypted_file' into file 'newfile.txt' using key in 'encrypted_file.key'
+Outputs decrpyed version of 'encrypted_file' into file 'newfile.txt' using key in 'encrypted_file.key'<br />
 `>python main.py decrypt encrypted_file encrypted_file.key testfile.txt`
 
-Outputs encrypted version of 'newfile.txt' into file 'new_encrypted' using previously generated key 'encrypted_file.key'
+Outputs encrypted version of 'newfile.txt' into file 'new_encrypted' using previously generated key 'encrypted_file.key'<br />
 `>python main.py encrypt --keyfile encrypted_file.key newfile.txt new_encrypted`
