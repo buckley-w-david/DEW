@@ -5,7 +5,12 @@ from secrets import randbits
 import dew
 
 def _encrypt(args):
-    key = randbits(256)
+    if (args.keyfile):
+        with open(args.keyfile, 'rb') as f:
+            key = int.from_bytes(f.read(), byteorder='little')
+    else:
+        key = randbits(256)
+        
     nonce0 = randbits(256)
     nonce1 = randbits(255)
     
@@ -21,9 +26,10 @@ def _encrypt(args):
             out.write(nonce0.to_bytes(32, byteorder='little')
                       + nonce1.to_bytes(32, byteorder='little')
                       + result)
-            
-    with open('{}.key'.format(args.outfile), 'wb') as out:
-        out.write(key.to_bytes(32, byteorder='little'))
+
+    if not args.keyfile:
+        with open('{}.key'.format(args.outfile), 'wb') as out:
+            out.write(key.to_bytes(32, byteorder='little'))
 
 def _decrypt(args):
     with open(args.keyfile, 'rb') as f:
@@ -49,6 +55,7 @@ if __name__ == '__main__':
     parser_e.add_argument('--cmdtext', action='store_true',
                         help="Specifiy this command to treat the 'infile' argument as the text the encrypt")
     parser_e.add_argument('infile', help="The plaintext wanted to be encrypted/decrypted")
+    parser_e.add_argument('--keyfile', help="Optional keyfile to encrypt the file, truncated/padded to 256 bits")
     parser_e.add_argument('outfile', help="Name of output encrypted file")
     parser_e.set_defaults(func=_encrypt)
 

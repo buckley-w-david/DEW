@@ -1,11 +1,12 @@
 import secrets
 import operator, functools
 
-#linear control LFSH combine
+#LFSH combine function, takes current state of the register and a combination polynomial to specify which bits to extract
 def combine(seed, poly):
     bits = [(seed >> (exponent-1)) & 1 for exponent in poly] #extract the bits for the given polynomial
     return functools.reduce(operator.xor, bits) #XOR all bits extracted from the seed together
 
+#Alternating Step generator used to expand key to match the length of the data
 def expand(key, size, nonce0, nonce1):
     mask_256 = (2**256)-1
     mask_255 = (2**255)-1
@@ -18,7 +19,7 @@ def expand(key, size, nonce0, nonce1):
     LFSR0_out = 0 
     LFSR1_out = 0 
     
-    warmup = -256 #have initial warmup phase to make output rely on both nonces and key
+    warmup = -256 #have initial warmup phase to make output rely on both nonces and key, instead of just the nonces
     for _ in range(size-warmup):
         control_out = control >> 255 #extract MSB
         next_in = combine(control, (12, 48, 115, 133, 213, 256)) #1 + x^12 + x^48 + x^115 + x^133 + x^213 + x^256
@@ -37,7 +38,7 @@ def expand(key, size, nonce0, nonce1):
             expanded_key = (expanded_key << 1) | (LFSR0_out ^ LFSR1_out) #shift output stream one to the left, and insert new output into LSB
         warmup += 1
         
-    return expanded_key.to_bytes(size//8, byteorder='little')
+    return expanded_key.to_bytes(size//8, byteorder='little') #convert the expanded key to bytes to xor with the file bytes
 
 def transform(stream, key, nonce1, nonce2):
     expanded_key = expand(key, len(stream)*8, nonce1, nonce2) #return a bytes object
