@@ -15,9 +15,10 @@ def combine(seed, poly):
 def expand(key, size, nonce0, nonce1):
     mask_256 = (2**256)-1
     mask_255 = (2**255)-1
+    mast_253 = (2**253)-1
     
     control = key #length 256 LFSR
-    LFSR0 = nonce0 #length 256 LFSR
+    LFSR0 = nonce0 #length 253 LFSR
     LFSR1 = nonce1 #length 255 LFSR
     expanded_key = 0
 
@@ -31,9 +32,9 @@ def expand(key, size, nonce0, nonce1):
         control = ((control << 1) | next_in) & mask_256 #Shift control 1 to the left, and insert the next_in to the LSB, then & with (2^256)-1 to cut off MSB (output)
 
         if control_out:
-            LFSR0_out = LFSR0 >> 255
-            next_in = combine(LFSR0, (12, 48, 115, 133, 213, 256)) #1 + x^12 + x^48 + x^115 + x^133 + x^213 + x^256
-            LFSR0 = ((LFSR0 << 1) | next_in) & mask_256
+            LFSR0_out = LFSR0 >> 253
+            next_in = combine(LFSR0, (5, 27, 82, 100, 158, 253)) #1 + x^5 + x^27 + x^82 + x^100 + x^158 + x^253
+            LFSR0 = ((LFSR0 << 1) | next_in) & mast_253
         else:
             LFSR1_out = LFSR1 >> 254
             next_in = combine(LFSR1, (50, 82, 116, 153, 166, 255)) #1 + x^50 + x^82 + x^116 + x^153 + x^166 + x^255
