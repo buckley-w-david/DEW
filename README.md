@@ -47,6 +47,6 @@ Outputs encrypted version of 'newfile.txt' into file 'new_encrypted' using previ
 `>python main.py encrypt --keyfile encrypted_file.key newfile.txt new_encrypted`
 
 ## References
-C. G. Günther, “Alternating Step Generators Controlled by Debruijn Sequences,” Eurocrypt 1987, pp. 5-14
-Miodrag Zivkovi ́c ˇ ∗†‡, "A Table of Primitive Binary Polynomials"
+C. G. Günther, “Alternating Step Generators Controlled by Debruijn Sequences,” Eurocrypt 1987, pp. 5-14<br />
+Miodrag Zivkovi ́c ˇ ∗†‡, "A Table of Primitive Binary Polynomials"<br />
 Alfred J. Menezes, Paul C. van Oorschot and Scott A. Vanstone, "Handbook of Applied Cryptograph", Fifth Printing 2001
