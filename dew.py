@@ -2,6 +2,11 @@ import secrets
 import operator, functools
 
 #LFSH combine function, takes current state of the register and a combination polynomial to specify which bits to extract
+def deBruijn(seed, poly):
+    R = combine(seed, poly)
+    extra = seed == 0
+    return R ^ extra
+
 def combine(seed, poly):
     bits = [(seed >> (exponent-1)) & 1 for exponent in poly] #extract the bits for the given polynomial
     return functools.reduce(operator.xor, bits) #XOR all bits extracted from the seed together
@@ -22,7 +27,7 @@ def expand(key, size, nonce0, nonce1):
     warmup = -256 #have initial warmup phase to make output rely on both nonces and key, instead of just the nonces
     for _ in range(size-warmup):
         control_out = control >> 255 #extract MSB
-        next_in = combine(control, (12, 48, 115, 133, 213, 256)) #1 + x^12 + x^48 + x^115 + x^133 + x^213 + x^256
+        next_in = deBruijn(control, (12, 48, 115, 133, 213, 256)) #1 + x^12 + x^48 + x^115 + x^133 + x^213 + x^256
         control = ((control << 1) | next_in) & mask_256 #Shift control 1 to the left, and insert the next_in to the LSB, then & with (2^256)-1 to cut off MSB (output)
 
         if control_out:
